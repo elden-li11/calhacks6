@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CalHacks6" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Vw8-SW-Z1a">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yva-dU-raU">
+                                <rect key="frame" x="149.5" y="710" width="115" height="115"/>
+                                <color key="backgroundColor" red="0.32222043375452297" green="0.28271473184421081" blue="0.91110949933687002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="115" id="IMH-xF-ooP"/>
+                                    <constraint firstAttribute="width" constant="115" id="daq-hC-9ko"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Rec.">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="recordButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="naO-YL-0sa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LFf-Gt-La8">
+                                <rect key="frame" x="299" y="772" width="90" height="90"/>
+                                <color key="backgroundColor" red="0.32222043379999998" green="0.28271473180000001" blue="0.91110949929999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="5QB-ba-M2g"/>
+                                    <constraint firstAttribute="height" constant="90" id="OgH-6s-LCV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BMd-WF-01N"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GaT-40-b3T">
+                                <rect key="frame" x="25" y="772" width="90" height="90"/>
+                                <color key="backgroundColor" red="0.32222043379999998" green="0.28271473180000001" blue="0.91110949929999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="dSZ-bB-dkX"/>
+                                    <constraint firstAttribute="width" constant="90" id="hP7-te-D0b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EPy-SC-fgW"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etP-sP-129">
+                                <rect key="frame" x="176.5" y="124" width="61" height="119.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                                <color key="textColor" red="0.19519649259999999" green="0.14286551880000001" blue="0.6590993866" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="etP-sP-129" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="0J2-FB-yKm"/>
+                            <constraint firstItem="Vw8-SW-Z1a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="17D-GG-dgp"/>
+                            <constraint firstItem="GaT-40-b3T" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="51v-nJ-PjQ"/>
+                            <constraint firstItem="Vw8-SW-Z1a" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="9Xu-8l-xdv"/>
+                            <constraint firstAttribute="bottom" secondItem="Vw8-SW-Z1a" secondAttribute="bottom" id="EtF-8f-Yxj"/>
+                            <constraint firstItem="etP-sP-129" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LaZ-Xi-2yY"/>
+                            <constraint firstItem="Yva-dU-raU" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="PIP-Hd-GBF"/>
+                            <constraint firstItem="LFf-Gt-La8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="aft-PA-eCR"/>
+                            <constraint firstItem="Vw8-SW-Z1a" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="jWo-LC-FVN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LFf-Gt-La8" secondAttribute="trailing" constant="25" id="nHn-Vo-h1b"/>
+                            <constraint firstItem="GaT-40-b3T" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="pDy-Ef-85u"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Yva-dU-raU" secondAttribute="bottom" constant="37" id="zdi-hg-0QJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="playButton" destination="LFf-Gt-La8" id="E03-3w-Mn3"/>
+                        <outlet property="recordButton" destination="Yva-dU-raU" id="0dS-o7-1hT"/>
+                        <outlet property="resetButton" destination="GaT-40-b3T" id="5sV-fh-uIt"/>
+                        <outlet property="timeLabel" destination="etP-sP-129" id="Gof-C8-VDx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="129.91071428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="background" width="375" height="812"/>
+    </resources>
+</document>
