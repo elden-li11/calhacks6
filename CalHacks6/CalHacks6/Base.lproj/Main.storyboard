@@ -66,9 +66,52 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etP-sP-129">
                                 <rect key="frame" x="176.5" y="124" width="61" height="119.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="100"/>
-                                <color key="textColor" red="0.19519649259999999" green="0.14286551880000001" blue="0.6590993866" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" red="0.32222043379999998" green="0.28271473180000001" blue="0.91110949929999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9wH-Rh-CyY">
+                                <rect key="frame" x="0.0" y="420" width="414" height="189"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="recCell" id="5CX-Sq-TLT" customClass="TableViewCell" customModule="CalHacks6" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5CX-Sq-TLT" id="Vd6-5T-zdA">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P2U-q6-Ri3">
+                                                    <rect key="frame" x="20" y="11" width="166" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ho0-8h-dNb">
+                                                    <rect key="frame" x="368" y="10" width="26" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="trash" catalog="system"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRF-ra-VJA">
+                                                    <rect key="frame" x="315" y="8" width="37" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="pause" catalog="system"/>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cellDeleteButton" destination="ho0-8h-dNb" id="jij-LG-j10"/>
+                                            <outlet property="cellLabel" destination="P2U-q6-Ri3" id="Chd-Bv-U2g"/>
+                                            <outlet property="cellPauseButton" destination="CRF-ra-VJA" id="yz8-fk-LYZ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="vJx-y9-EDX"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="bsd-cP-tCu"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -89,6 +132,7 @@
                     </view>
                     <connections>
                         <outlet property="playButton" destination="LFf-Gt-La8" id="E03-3w-Mn3"/>
+                        <outlet property="recTableView" destination="9wH-Rh-CyY" id="Xv0-cU-Fji"/>
                         <outlet property="recordButton" destination="Yva-dU-raU" id="0dS-o7-1hT"/>
                         <outlet property="resetButton" destination="GaT-40-b3T" id="5sV-fh-uIt"/>
                         <outlet property="timeLabel" destination="etP-sP-129" id="Gof-C8-VDx"/>
@@ -101,5 +145,7 @@
     </scenes>
     <resources>
         <image name="background" width="375" height="812"/>
+        <image name="pause" catalog="system" width="44" height="64"/>
+        <image name="trash" catalog="system" width="60" height="64"/>
     </resources>
 </document>

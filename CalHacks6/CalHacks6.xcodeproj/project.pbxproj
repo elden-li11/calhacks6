@@ -14,6 +14,7 @@
 		A26CCFB5236429610052ADBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A26CCFB4236429610052ADBE /* Assets.xcassets */; };
 		A26CCFB8236429610052ADBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A26CCFB6236429610052ADBE /* LaunchScreen.storyboard */; };
 		A26CCFC0236446B00052ADBE /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26CCFBF236446B00052ADBE /* UIButtonExtension.swift */; };
+		A2A252112365209200600858 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A252102365209200600858 /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		A26CCFB7236429610052ADBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A26CCFB9236429610052ADBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A26CCFBF236446B00052ADBE /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		A2A252102365209200600858 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				A26CCFB6236429610052ADBE /* LaunchScreen.storyboard */,
 				A26CCFB9236429610052ADBE /* Info.plist */,
 				A26CCFBF236446B00052ADBE /* UIButtonExtension.swift */,
+				A2A252102365209200600858 /* TableViewCell.swift */,
 			);
 			path = CalHacks6;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2A252112365209200600858 /* TableViewCell.swift in Sources */,
 				A26CCFB0236429600052ADBE /* ViewController.swift in Sources */,
 				A26CCFC0236446B00052ADBE /* UIButtonExtension.swift in Sources */,
 				A26CCFAC236429600052ADBE /* AppDelegate.swift in Sources */,
