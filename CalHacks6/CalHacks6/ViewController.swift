@@ -30,7 +30,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-
+        
         // Audio Session setup
         recordingSession = AVAudioSession.sharedInstance()
         
@@ -143,35 +143,30 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     @IBAction func resetButtonPressed(_ sender: UIButton) {
         if selectedRecording != nil {
             
+            // let path getDir().relativePath
+            let path = getDir().relativePath+ "\(selectedRecording).m4a"
+            getDir().
+            let url = URL(string: path)
+            let soundData = FileManager.default.contents(atPath: path)
+            print(soundData)
+            
         }
         
     }
     
     @IBAction func playButtonPressed(_ sender: UIButton) {
+        print("The recording will be stored as: " + getDir().relativePath + "\(numberOfRecords).m4a")
+        
         sender.pulse()
     }
     
-    
-    // Get path to directory where the audio recording(s) will be stored
-//    func getDir() -> URL{
-//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        let documentDirectory = paths[0]
-//        
-//        return documentDirectory
-//    }
-//    
-//    // Display alerts here for user knowledge
-//    func displayAlert(title: String, message: String) {
-//        let alert = UIAlertController(title:  title, message: message, preferredStyle: .alert)
-//        alert.addAction(_ : .init(title: "dismiss", style: .default, handler: nil))
-//        present(alert, animated: true, completion: nil)
-//         
-//    }
     
     // Table View Delegates
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfRecords
     }
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "recCell", for: indexPath) as? TableViewCell {
@@ -182,12 +177,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         return UITableViewCell()
     }
     
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if !self.playing {
-
             let path = getDir().appendingPathComponent("\(indexPath.row + 1).m4a")
-        
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: path)
                 
