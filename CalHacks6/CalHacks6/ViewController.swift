@@ -34,11 +34,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         // Audio Session setup
         recordingSession = AVAudioSession.sharedInstance()
         
-        if let number : Int = UserDefaults.standard.object(forKey: "myNumber") as? Int
-        {
-            numberOfRecords = number
-        }
-        
+//        if let number : Int = UserDefaults.standard.object(forKey: "myNumber") as? Int
+//        {
+//            numberOfRecords = number
+//        }
+//
         AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
             if hasPermission {
                 print("Microphone access granted")
@@ -78,7 +78,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
             numberOfRecords += 1
             let fileName = getDir().appendingPathComponent("\(numberOfRecords).m4a")
             let settings = [AVFormatIDKey : Int(kAudioFormatMPEG4AAC),
-                            AVSampleRateKey : 12000,
+                            AVSampleRateKey : 48000,
                             AVNumberOfChannelsKey : 1,
                             AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue]
             
@@ -112,12 +112,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         }
     }
     
+    var selectedRecording: Int!
+    
+    // Send selected file to Flask Server
     @IBAction func resetButtonPressed(_ sender: UIButton) {
-        if !recording {
-            sender.pulse()
-            time = 0
-            timeLabel.text = String(time) 
+        if selectedRecording != nil {
+            let audioFile = getDir().appendingPathComponent("\(selectedRecording +  1).m4a")
         }
+        
     }
     
     @IBAction func playButtonPressed(_ sender: UIButton) {
@@ -147,7 +149,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "recCell", for: indexPath) as? TableViewCell {
             cell.cellLabel.text = "recording " + String(indexPath.row + 1)
-            cell.backgroundColor = UIColor(white: 1, alpha: 0.5)
+            cell.backgroundColor = UIColor(white: 1, alpha: 0.25)
             return cell
         }
         return UITableViewCell()
@@ -163,6 +165,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
             audioPlayer = try AVAudioPlayer(contentsOf: path)
             audioPlayer.play()
             self.playing = true
+                selectedRecording = indexPath.row
+                print("selected recording : " + String(selectedRecording))
             } catch  {
             displayAlert(title: "Sorry", message: "The selection caused an error")
             }
@@ -170,6 +174,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
             audioPlayer.pause()
             self.playing = false
         }
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
     
 }
