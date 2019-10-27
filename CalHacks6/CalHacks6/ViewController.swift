@@ -65,6 +65,37 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         
     }
     
+    // Get path to directory where the audio recording(s) will be stored
+    func getDir() -> URL{
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = paths[0]
+        
+        return documentDirectory
+    }
+    
+    // Display alerts here for user knowledge
+    func displayAlert(title: String, message: String) {
+        let alert = UIAlertController(title:  title, message: message, preferredStyle: .alert)
+        alert.addAction(_ : .init(title: "dismiss", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @IBAction func recordButtonTapped(_ sender: UIButton) {
         
         // Check if we have an active recorder
@@ -78,7 +109,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
                             AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue]
             
             // start audio recording
-            do {
+            do
+            {
                 audioRecorder = try AVAudioRecorder(url: fileName, settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.record()
@@ -87,7 +119,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
                 sender.setTitle("Stop", for: UIControl.State.normal)
                 timeLabel.text = "Recording!"
                 timeLabel.pulseLabel()
-            } catch {
+            }
+            catch
+            {
                 displayAlert(title: "Error!", message: "Sorry, something is wrong with your microphone ")
             }
         // Stopping audio recording
@@ -108,9 +142,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     // *------- Send selected audio clip to Flask server --------*
     @IBAction func resetButtonPressed(_ sender: UIButton) {
         if selectedRecording != nil {
-            sender.pulse()
-            let audioFile = getDir().appendingPathComponent("\(selectedRecording +  1).m4a")
-             
             
         }
         
@@ -120,20 +151,22 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         sender.pulse()
     }
     
-    // Get path to directory where the audio recording(s) will be stored
-    func getDir() -> URL{
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = paths[0]
-        return documentDirectory
-    }
     
-    // Display alerts here for user knowledge
-    func displayAlert(title: String, message: String) {
-        let alert = UIAlertController(title:  title, message: message, preferredStyle: .alert)
-        alert.addAction(_ : .init(title: "dismiss", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-         
-    }
+    // Get path to directory where the audio recording(s) will be stored
+//    func getDir() -> URL{
+//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        let documentDirectory = paths[0]
+//        
+//        return documentDirectory
+//    }
+//    
+//    // Display alerts here for user knowledge
+//    func displayAlert(title: String, message: String) {
+//        let alert = UIAlertController(title:  title, message: message, preferredStyle: .alert)
+//        alert.addAction(_ : .init(title: "dismiss", style: .default, handler: nil))
+//        present(alert, animated: true, completion: nil)
+//         
+//    }
     
     // Table View Delegates
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -158,7 +191,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: path)
                 
-                path.
+                print(getDir())
                 
                 audioPlayer.play()
                 self.playing = true
