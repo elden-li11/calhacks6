@@ -77,7 +77,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
             numberOfRecords += 1
             let fileName = getDir().appendingPathComponent("\(numberOfRecords).m4a")
             let settings = [AVFormatIDKey : Int(kAudioFormatMPEG4AAC),
-                            AVSampleRateKey : 12000,
+                            AVSampleRateKey : 48000,
                             AVNumberOfChannelsKey : 1,
                             AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue]
             
@@ -94,7 +94,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
                 
             } catch {
                 displayAlert(title: "Error!", message: "Sorry, something is wrong with your microphone ")
-            }
+            }jt
             
         // Stopping audio recording
         } else {
