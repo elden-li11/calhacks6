@@ -13,89 +13,27 @@
 # limitations under the License.
 
 # [START gae_python37_app]
-from flask import Flask
+from flask import Flask, send_file
 import numpy as np
 import scipy as sp
+from process import process
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
 app = Flask(__name__)
 
-bad_script="""var dots = [],
-	mouse = {
-	  x: 0,
-	  y: 0
-	};
-
-var Dot = function() {
-  this.x = 0;
-  this.y = 0;
-  this.node = (function(){
-	var n = document.createElement("div");
-	n.className = "tail";
-	document.body.appendChild(n);
-	return n;
-  }());
-};
-Dot.prototype.draw = function() {
-  this.node.style.left = this.x + "px";
-  this.node.style.top = this.y + "px";
-};
-
-for (var i = 0; i < 12; i++) {
-  var d = new Dot();
-  dots.push(d);
-}
-
-function draw() {
-  var x = mouse.x,
-	  y = mouse.y;
-  
-  dots.forEach(function(dot, index, dots) {
-	var nextDot = dots[index + 1] || dots[0];
-	
-	dot.x = x;
-	dot.y = y;
-	dot.draw();
-	x += (nextDot.x - dot.x) * .6;
-	y += (nextDot.y - dot.y) * .6;
-
-  });
-}
-
-addEventListener("mousemove", function(event) {
-  mouse.x = event.pageX;
-  mouse.y = event.pageY;
-});
-
-function animate() {
-  draw();
-  requestAnimationFrame(animate);
-}
-
-animate();"""
-
-bad_css=""".tail {
-	position: absolute;
-	height: 6px; width: 6px;
-	border-radius: 3px;
-	background: tomato;
-  }"""
-
 @app.route('/')
 def hello():
-	"""Return a friendly HTTP greeting."""
-	content = ""
-	content += "<html><head><title>Title Page</title></head><body>"
-	content += 'Hello World!' + "<style>"+bad_css+"<\style>" + "<script>"+bad_script+"<\script>" + str(np.sqrt(np.sum(np.square(np.array([1, 1])))))
-	content += "</body></html>"
-	return content
-
+    with open("file3.wav", "rb") as f1:
+        with open("file4.wav", "rb") as f2:
+            process(f1, f2, fmt="wav")
+    send_file("/tmp/output.mp3", as_attachment=True)
+    return "File downloaded!"
 
 if __name__ == '__main__':
-	# This is used when running locally only. When deploying to Google App
-	# Engine, a webserver process such as Gunicorn will serve the app. This
-	# can be configured by adding an `entrypoint` to app.yaml.
-	app.run(host='127.0.0.1', port=8080, debug=True)
+    # This is used when running locally only. When deploying to Google App
+    # Engine, a webserver process such as Gunicorn will serve the app. This
+    # can be configured by adding an `entrypoint` to app.yaml.
+    app.run(host='127.0.0.1', port=8080, debug=True)
 # [END gae_python37_app]

@@ -7,3 +7,5 @@ soundfile==0.9
 tqdm==4.11.0
 Cython==0.25.2
 h5py==2.7.0
+logmmse
+pydub
