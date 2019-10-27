@@ -18,6 +18,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     @IBOutlet weak var recTableView: UITableView!
     
     var recording: Bool = false
+    var playing: Bool = false
     var time: Int = 0
     var timer: Timer = Timer()
     
@@ -154,14 +155,21 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let path = getDir().appendingPathComponent("\(indexPath.row + 1).m4a")
-        do {
+        if !self.playing {
+
+            let path = getDir().appendingPathComponent("\(indexPath.row + 1).m4a")
+        
+            do {
             audioPlayer = try AVAudioPlayer(contentsOf: path)
             audioPlayer.play()
-        } catch  {
-            
+            self.playing = true
+            } catch  {
+            displayAlert(title: "Sorry", message: "The selection caused an error")
+            }
+        } else {
+            audioPlayer.pause()
+            self.playing = false
         }
-        
     }
     
 }

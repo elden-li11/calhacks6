@@ -11,8 +11,6 @@ import UIKit
 class TableViewCell: UITableViewCell {
     
     @IBOutlet weak var cellLabel: UILabel!
-    @IBOutlet weak var cellDeleteButton: UIButton!
-    @IBOutlet weak var cellPauseButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
