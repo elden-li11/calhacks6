@@ -46,11 +46,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         }
     }
     
-    @objc func startTime() {
-        time += 1
-        timeLabel.text = String(time)
-    }
-    
     // All UI setup done in this function, called in viewDidLoad
     func setupUI() {
         
@@ -87,37 +82,36 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
                 audioRecorder = try AVAudioRecorder(url: fileName, settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.record()
-                
                 recording = true
                 sender.pulse()
                 sender.setTitle("Stop", for: UIControl.State.normal)
-                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.startTime), userInfo: nil, repeats: true)
-                
+                timeLabel.text = "Recording!"
+                timeLabel.pulseLabel()
             } catch {
                 displayAlert(title: "Error!", message: "Sorry, something is wrong with your microphone ")
             }
-            
         // Stopping audio recording
         } else {
             audioRecorder.stop()
             audioRecorder = nil
-            
             UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
             recTableView.reloadData()
-            
             recording = false
             sender.pulse()
             sender.setTitle("Rec.", for: UIControl.State.normal)
-            timer.invalidate()
+            timeLabel.text = "🎶"
         }
     }
     
     var selectedRecording: Int!
     
-    // Send selected file to Flask Server
+    // *------- Send selected audio clip to Flask server --------*
     @IBAction func resetButtonPressed(_ sender: UIButton) {
         if selectedRecording != nil {
+            sender.pulse()
             let audioFile = getDir().appendingPathComponent("\(selectedRecording +  1).m4a")
+             
+            
         }
         
     }
@@ -162,10 +156,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
             let path = getDir().appendingPathComponent("\(indexPath.row + 1).m4a")
         
             do {
-            audioPlayer = try AVAudioPlayer(contentsOf: path)
-            audioPlayer.play()
-            self.playing = true
+                audioPlayer = try AVAudioPlayer(contentsOf: path)
+                
+                path.
+                
+                audioPlayer.play()
+                self.playing = true
                 selectedRecording = indexPath.row
+                resetButton.setTitle(String(selectedRecording + 1), for: UIControl.State.normal)
                 print("selected recording : " + String(selectedRecording))
             } catch  {
             displayAlert(title: "Sorry", message: "The selection caused an error")
@@ -173,6 +171,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         } else {
             audioPlayer.pause()
             self.playing = false
+            resetButton.setTitle("Post ", for: UIControl.State.normal)
+            selectedRecording = nil
         }
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
