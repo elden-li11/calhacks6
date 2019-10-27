@@ -30,25 +30,20 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-
+        
         // Audio Session setup
         recordingSession = AVAudioSession.sharedInstance()
         
-        if let number : Int = UserDefaults.standard.object(forKey: "myNumber") as? Int
-        {
-            numberOfRecords = number
-        }
-        
+//        if let number : Int = UserDefaults.standard.object(forKey: "myNumber") as? Int
+//        {
+//            numberOfRecords = number
+//        }
+//
         AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
             if hasPermission {
                 print("Microphone access granted")
             }
         }
-    }
-    
-    @objc func startTime() {
-        time += 1
-        timeLabel.text = String(time)
     }
     
     // All UI setup done in this function, called in viewDidLoad
@@ -70,64 +65,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         
     }
     
-    @IBAction func recordButtonTapped(_ sender: UIButton) {
-        
-        // Check if we have an active recorder
-        if audioRecorder == nil {
-             
-            numberOfRecords += 1
-            let fileName = getDir().appendingPathComponent("\(numberOfRecords).m4a")
-            let settings = [AVFormatIDKey : Int(kAudioFormatMPEG4AAC),
-                            AVSampleRateKey : 12000,
-                            AVNumberOfChannelsKey : 1,
-                            AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue]
-            
-            // start audio recording
-            do {
-                audioRecorder = try AVAudioRecorder(url: fileName, settings: settings)
-                audioRecorder.delegate = self
-                audioRecorder.record()
-                
-                recording = true
-                sender.pulse()
-                sender.setTitle("Stop", for: UIControl.State.normal)
-                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.startTime), userInfo: nil, repeats: true)
-                
-            } catch {
-                displayAlert(title: "Error!", message: "Sorry, something is wrong with your microphone ")
-            }
-            
-        // Stopping audio recording
-        } else {
-            audioRecorder.stop()
-            audioRecorder = nil
-            
-            UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
-            recTableView.reloadData()
-            
-            recording = false
-            sender.pulse()
-            sender.setTitle("Rec.", for: UIControl.State.normal)
-            timer.invalidate()
-        }
-    }
-    
-    @IBAction func resetButtonPressed(_ sender: UIButton) {
-        if !recording {
-            sender.pulse()
-            time = 0
-            timeLabel.text = String(time) 
-        }
-    }
-    
-    @IBAction func playButtonPressed(_ sender: UIButton) {
-        sender.pulse()
-    }
-    
     // Get path to directory where the audio recording(s) will be stored
     func getDir() -> URL{
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = paths[0]
+        
         return documentDirectory
     }
     
@@ -136,40 +78,131 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         let alert = UIAlertController(title:  title, message: message, preferredStyle: .alert)
         alert.addAction(_ : .init(title: "dismiss", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
-         
+
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @IBAction func recordButtonTapped(_ sender: UIButton) {
+        
+        // Check if we have an active recorder
+        if audioRecorder == nil {
+             
+            numberOfRecords += 1
+            let fileName = getDir().appendingPathComponent("\(numberOfRecords).m4a")
+            let settings = [AVFormatIDKey : Int(kAudioFormatMPEG4AAC),
+                            AVSampleRateKey : 48000,
+                            AVNumberOfChannelsKey : 1,
+                            AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue]
+            
+            // start audio recording
+            do
+            {
+                audioRecorder = try AVAudioRecorder(url: fileName, settings: settings)
+                audioRecorder.delegate = self
+                audioRecorder.record()
+                recording = true
+                sender.pulse()
+                sender.setTitle("Stop", for: UIControl.State.normal)
+                timeLabel.text = "Recording!"
+                timeLabel.pulseLabel()
+            }
+            catch
+            {
+                displayAlert(title: "Error!", message: "Sorry, something is wrong with your microphone ")
+            }
+        // Stopping audio recording
+        } else {
+            audioRecorder.stop()
+            audioRecorder = nil
+            UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
+            recTableView.reloadData()
+            recording = false
+            sender.pulse()
+            sender.setTitle("Rec.", for: UIControl.State.normal)
+            timeLabel.text = "🎶"
+        }
+    }
+    
+    var selectedRecording: Int!
+    
+    // *------- Send selected audio clip to Flask server --------*
+    @IBAction func resetButtonPressed(_ sender: UIButton) {
+        if selectedRecording != nil {
+            
+            // let path getDir().relativePath
+            let path = getDir().relativePath+ "\(selectedRecording).m4a"
+            getDir().
+            let url = URL(string: path)
+            let soundData = FileManager.default.contents(atPath: path)
+            print(soundData)
+            
+        }
+        
+    }
+    
+    @IBAction func playButtonPressed(_ sender: UIButton) {
+        print("The recording will be stored as: " + getDir().relativePath + "\(numberOfRecords).m4a")
+        
+        sender.pulse()
+    }
+    
     
     // Table View Delegates
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfRecords
     }
     
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "recCell", for: indexPath) as? TableViewCell {
             cell.cellLabel.text = "recording " + String(indexPath.row + 1)
-            cell.backgroundColor = UIColor(white: 1, alpha: 0.5)
+            cell.backgroundColor = UIColor(white: 1, alpha: 0.25)
             return cell
         }
         return UITableViewCell()
     }
     
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if !self.playing {
-
             let path = getDir().appendingPathComponent("\(indexPath.row + 1).m4a")
-        
             do {
-            audioPlayer = try AVAudioPlayer(contentsOf: path)
-            audioPlayer.play()
-            self.playing = true
+                audioPlayer = try AVAudioPlayer(contentsOf: path)
+                
+                print(getDir())
+                
+                audioPlayer.play()
+                self.playing = true
+                selectedRecording = indexPath.row
+                resetButton.setTitle(String(selectedRecording + 1), for: UIControl.State.normal)
+                print("selected recording : " + String(selectedRecording))
             } catch  {
             displayAlert(title: "Sorry", message: "The selection caused an error")
             }
         } else {
             audioPlayer.pause()
             self.playing = false
+            resetButton.setTitle("Post ", for: UIControl.State.normal)
+            selectedRecording = nil
         }
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
     
 }

@@ -25,3 +25,20 @@ extension UIButton {
     }
      
 }
+
+extension UILabel {
+    
+    func pulseLabel() {
+        let pulse = CASpringAnimation(keyPath: "transform.scale")
+        pulse.duration = 5.0
+        pulse.fromValue = 0.9
+        pulse.toValue = 1.0
+        pulse.autoreverses = false
+        pulse.repeatCount = 1
+        pulse.initialVelocity = 0.5
+        pulse.damping = 1.0
+        layer.add(pulse, forKey: nil)
+        
+    }
+     
+}
