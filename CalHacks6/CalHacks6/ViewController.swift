@@ -18,6 +18,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     @IBOutlet weak var recTableView: UITableView!
     
     var recording: Bool = false
+    var playing: Bool = false
     var time: Int = 0
     var timer: Timer = Timer()
     
@@ -77,7 +78,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
             numberOfRecords += 1
             let fileName = getDir().appendingPathComponent("\(numberOfRecords).m4a")
             let settings = [AVFormatIDKey : Int(kAudioFormatMPEG4AAC),
-                            AVSampleRateKey : 48000,
+                            AVSampleRateKey : 12000,
                             AVNumberOfChannelsKey : 1,
                             AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue]
             
@@ -94,7 +95,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
                 
             } catch {
                 displayAlert(title: "Error!", message: "Sorry, something is wrong with your microphone ")
-            }jt
+            }
             
         // Stopping audio recording
         } else {
@@ -154,14 +155,21 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let path = getDir().appendingPathComponent("\(indexPath.row + 1).m4a")
-        do {
+        if !self.playing {
+
+            let path = getDir().appendingPathComponent("\(indexPath.row + 1).m4a")
+        
+            do {
             audioPlayer = try AVAudioPlayer(contentsOf: path)
             audioPlayer.play()
-        } catch  {
-            
+            self.playing = true
+            } catch  {
+            displayAlert(title: "Sorry", message: "The selection caused an error")
+            }
+        } else {
+            audioPlayer.pause()
+            self.playing = false
         }
-        
     }
     
 }

@@ -88,22 +88,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ho0-8h-dNb">
-                                                    <rect key="frame" x="368" y="10" width="26" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="trash" catalog="system"/>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRF-ra-VJA">
-                                                    <rect key="frame" x="315" y="8" width="37" height="34"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="pause" catalog="system"/>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="cellDeleteButton" destination="ho0-8h-dNb" id="jij-LG-j10"/>
                                             <outlet property="cellLabel" destination="P2U-q6-Ri3" id="Chd-Bv-U2g"/>
-                                            <outlet property="cellPauseButton" destination="CRF-ra-VJA" id="yz8-fk-LYZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -145,7 +133,5 @@
     </scenes>
     <resources>
         <image name="background" width="375" height="812"/>
-        <image name="pause" catalog="system" width="44" height="64"/>
-        <image name="trash" catalog="system" width="60" height="64"/>
     </resources>
 </document>
